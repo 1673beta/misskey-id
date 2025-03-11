@@ -1,3 +1,7 @@
+//! ULID (Universally Unique Lexicographically Sortable Identifier) utilities
+//! 
+//! Provides functions to generate and parse ULIDs.
+
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use ulid::{DecodeError, Generator, Ulid};
 

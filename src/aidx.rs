@@ -1,8 +1,16 @@
-/// # AIDX
-/// AIDX is a unique identifier that is generated based on the current time, node id, and a counter.
-/// The first 8 characters represent the time in milliseconds since the Unix epoch (2000-01-01T00:00:00Z).
-/// The next 4 characters represent the unique id.
-/// The last 4 characters are a counter that increments with each new AIDX generated.
+//! 16 characters unique identifier
+//! 
+//! 16 characters unique identifier.
+//! The first 8 characters represent the time in milliseconds since the Unix epoch (2000-01-01T00:00:00Z).
+//! 
+//! The next 4 characters represent the unique id.
+//! 
+//! The last 4 characters are a counter that increments with each new aidx generated.
+//! 
+//! (c) mei23
+//! 
+//! <https://misskey.m544.net/notes/71899acdcc9859ec5708ac24>
+
 use std::num::ParseIntError;
 use std::sync::atomic::{AtomicU32, Ordering};
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
@@ -21,6 +29,9 @@ const NOISE_LENGTH: usize = 4;
 
 static COUNTER: AtomicU32 = AtomicU32::new(0);
 lazy_static! {
+    /// Regular expression for aidx
+    /// 
+    /// Matches a 16 character long string that contains only lowercase letters and numbers.
     pub static ref AIDX_REGEX: Regex = Regex::new(r"^[0-9a-z]{16}$").unwrap();
     pub static ref NODE_ID: String = nanoid!(
         NODE_LENGTH,
@@ -47,10 +58,12 @@ fn get_noise() -> String {
     )
 }
 
+/// Generate a new aidx.
 pub fn gen_aidx(time: u64) -> Result<String, &'static str> {
     Ok(format!("{}{}{}", get_time(time), &*NODE_ID, get_noise()))
 }
 
+/// Parse a aidx into a SystemTime.
 pub fn parse(id: &str) -> Result<SystemTime, ParseIntError> {
     let time_part = &id[0..8];
     let time = u64::from_str_radix(time_part, 36)? + TIME2000;

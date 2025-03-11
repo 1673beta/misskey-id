@@ -1,3 +1,5 @@
+//! # Encode a number in a given radix
+
 /// Encode a number in a given radix.
 /// # Arguments
 /// * `num` - The number to encode.

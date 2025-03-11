@@ -1,7 +1,10 @@
-/// # meid
-/// meid is a 24-character identifier that is composed of a 12-character timestamp and a 12-character random string.
-/// The first 12 characters represent the time in milliseconds since the Unix epoch (1970-01-01T00:00:00Z).
-/// The last 12 characters are a random string.
+//! 24 characters unique identifier
+//! 
+//! 24-character identifier that is composed of a 12-character timestamp and a 12-character random string.
+//! 
+//! The first 12 characters represent the time in milliseconds since the Unix epoch (1970-01-01T00:00:00Z).
+//! 
+//! The last 12 characters are a random string.
 use std::{num::ParseIntError, time::SystemTime};
 
 use chrono::{DateTime, TimeZone, Utc};

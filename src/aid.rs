@@ -1,9 +1,10 @@
-/// # AID
-/// AID is a 10 character long unique identifier.
-/// The first 8 characters represent the time in milliseconds since the Unix epoch (2000-01-01T00:00:00Z).
-/// The last 2 characters are a counter that increments with each new AID generated.
-/// (c) mei23
-/// https://misskey.m544.net/notes/71899acdcc9859ec5708ac24
+//! # 10 character long unique identifier
+//! 10 character long unique identifier.
+//! 
+//! The first 8 characters represent the time in milliseconds since the Unix epoch (2000-01-01T00:00:00Z).
+//! 
+//! The last 2 characters are a counter that increments with each new aid generated.
+
 use std::{
     num::ParseIntError,
     time::{SystemTime, UNIX_EPOCH},
@@ -17,6 +18,9 @@ const TIME2000: u64 = 946684800000;
 static COUNTER: std::sync::atomic::AtomicU16 = std::sync::atomic::AtomicU16::new(0);
 
 lazy_static! {
+    /// Regular expression for aid
+    /// 
+    /// Matches a 10 character long string that contains only lowercase letters and numbers.
     pub static ref AID_REGEX: regex::Regex = regex::Regex::new(r"^[0-9a-z]{10}$").unwrap();
 }
 
@@ -30,6 +34,7 @@ fn get_noise() -> String {
     format!("{:0>2}", radix_encode(counter_val as i64, 36).unwrap())
 }
 
+/// Generate a new aid
 pub fn gen(time: u64) -> Result<String, &'static str> {
     Ok(format!("{}{}", get_time(time), get_noise()))
 }

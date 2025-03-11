@@ -1,8 +1,8 @@
-/// ObjectID
-/// ObjectID is a 12-byte identifier for documents in database.
-/// This is for compatibility with legacy version of misskey.
-/// The first 4 bytes are a timestamp value representing the ObjectId's creation, specifically the number of seconds since the Unix epoch.
-/// The last 8 bytes are a random value.
+//! 24 characters unique identifier for documents in database.
+//! 
+//! This is for compatibility with legacy version of misskey.
+//! The first 4 bytes are a timestamp value representing the ObjectId's creation, specifically the number of seconds since the Unix epoch.
+//! The last 8 bytes are a random value.
 use std::{num::ParseIntError, time::SystemTime};
 
 use chrono::{DateTime, TimeZone, Utc};
